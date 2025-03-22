@@ -1,1 +1,79 @@
-{"messages":[{"role":"user","content":"Doraemon ","id":"obgfRxy"},{"id":"ajWOEGl","createdAt":"2025-03-22T08:54:10.082Z","content":"Doraemon is a popular Japanese manga and anime series created by Fujiko F. Fujio. The story revolves around a robotic cat named Doraemon, who travels back in time from the 22nd century to help a young boy named Nobita Nobi. Nobita is often portrayed as clumsy and unlucky, and Doraemon uses various futuristic gadgets from his \"fourth-dimensional pocket\" to assist him in overcoming challenges and improving his life.\n\nThe series explores themes of friendship, perseverance, and the consequences of one's actions, often with a humorous and light-hearted tone. Since its debut in the late 1960s, Doraemon has become a cultural icon in Japan and has gained immense popularity worldwide, leading to numerous adaptations, including animated films, video games, and merchandise.\n\nIf you have specific questions or topics related to Doraemon that you'd like to discuss, feel free to ask!","role":"assistant"},{"id":"9rEOtjw","content":"Doraemon","role":"user"}],"agentMode":{},"id":"9rEOtjw","previewToken":null,"userId":null,"codeModelMode":true,"trendingAgentMode":{},"isMicMode":false,"userSystemPrompt":null,"maxTokens":1024,"playgroundTopP":null,"playgroundTemperature":null,"isChromeExt":false,"githubToken":"","clickedAnswer2":false,"clickedAnswer3":false,"clickedForceWebSearch":false,"visitFromDelta":false,"isMemoryEnabled":false,"mobileClient":false,"userSelectedModel":null,"validated":"00f37b34-a166-4efb-bce5-1312d87f2f94","imageGenerationMode":true,"webSearchModePrompt":false,"deepSearchMode":false,"domains":null,"vscodeClient":false,"codeInterpreterMode":false,"customProfile":{"name":"","occupation":"","traits":[],"additionalInfo":"","enableNewChats":false},"session":{"user":{"name":"Hacked By me","email":"bymeh2816@gmail.com","image":"https://lh3.googleusercontent.com/a/ACg8ocJ8LpYctosbcftX_tq_XY9pr0VcjUVWxB1TMdoOQUX2z5oL9w=s96-c","id":"115754197225321299275"},"expires":"2025-04-21T08:54:47.260Z"},"isPremium":false,"subscriptionCache":{"status":"FREE","expiryTimestamp":null,"lastChecked":1742633108623,"isTrialSubscription":false},"beastMode":false,"reasoningMode":false}
+const axios = require('axios');
+
+const makeApiRequest = (prompt, ai, img, web) => {
+  const url = 'https://www.blackbox.ai/api/chat';
+
+  const payload = {
+    messages: [
+      {
+        role: "user",
+        content: prompt,
+        id: "uY89pMg"
+      }
+    ],
+    agentMode: {},
+    id: "h93bptK",
+    previewToken: null,
+    userId: null,
+    codeModelMode: true,
+    trendingAgentMode: {},
+    isMicMode: false,
+    userSystemPrompt: null,
+    maxTokens: 1024,
+    playgroundTopP: null,
+    playgroundTemperature: null,
+    isChromeExt: false,
+    githubToken: "",
+    clickedAnswer2: false,
+    clickedAnswer3: false,
+    clickedForceWebSearch: false,
+    visitFromDelta: false,
+    isMemoryEnabled: false,
+    mobileClient: false,
+    userSelectedModel: null,
+    validated: "00f37b34-a166-4efb-bce5-1312d87f2f94",
+    imageGenerationMode: true,
+    webSearchModePrompt: web,
+    deepSearchMode: false,
+    domains: null,
+    vscodeClient: false,
+    codeInterpreterMode: false,
+    isPremium: false,
+    beastMode: false,
+    reasoningMode: false
+  };
+
+  const headers = {
+    'Accept': '*/*',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept-Language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7',
+    'Content-Type': 'application/json',
+    'Origin': 'https://www.blackbox.ai',
+    'Referer': 'https://www.blackbox.ai/'
+  };
+
+  axios.post(url, payload, { headers })
+    .then(response => {
+     console.log('Response:', response.data);
+      const match = response.data.match(/\$~~~\$(.*?)\$~~~\$/);
+     // console.log(match)
+      let search;
+      let output 
+            if (match) {
+                 search = JSON.parse(match[1]);
+                const text = response.data.replace(match[0], '');
+                 output = text.split('\n\n\n\n')[1];
+             //   callback({ search });
+             //   callback({ text: output })
+             console.log("search:", search, "text:", output);
+            } else {
+                if (search) console.log({ text: response.data});
+            }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+};
+
+// Example usage of the function:
+makeApiRequest("Doraemon", true, true, false);
